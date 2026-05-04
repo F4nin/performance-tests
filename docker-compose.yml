@@ -1,0 +1,14 @@
+services:
+    script:
+      build:
+          context: .
+          dockerfile : Dockerfile
+      depends_on:
+      - redis
+
+
+    redis:
+        image: "redis:alpine"
+        restart: always
+        ports:
+            - '6379:6379'
