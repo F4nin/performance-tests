@@ -3,6 +3,9 @@ from tools.fakers import fake
 
 
 class UserSchema(BaseModel):
+    """
+    Описание структуры пользователя.
+    """
     id: str
     email: EmailStr
     last_name: str = Field(alias="lastName")
@@ -12,6 +15,9 @@ class UserSchema(BaseModel):
 
 
 class CreateUserRequestSchema(BaseModel):
+    """
+    Описание структуры запроса для создания пользователя
+    """
     email: EmailStr = Field(default_factory=fake.email)
     last_name: str = Field(alias="lastName", default_factory=fake.last_name)
     first_name: str = Field(alias="firstName", default_factory=fake.first_name)

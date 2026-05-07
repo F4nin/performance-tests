@@ -1,5 +1,4 @@
 from typing import Any
-from httpx._types import RequestData
 
 from httpx import Client, URL, Response, QueryParams
 

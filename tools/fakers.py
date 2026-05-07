@@ -90,7 +90,6 @@ class Fake:
         return self.faker.random_int(start, end)
 
 
-
     def phone_number(self) -> str:
         """
         Генерирует случайный номер телефона
