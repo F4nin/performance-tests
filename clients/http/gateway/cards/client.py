@@ -9,18 +9,20 @@ class CardsGatewayHTTPClient(HttpClient):
     """
     def issue_virtual_card_api(self, request: IssueVirtualCardRequestSchema) -> Response:
         """
-        Публичный метод для создания пользователя
-        :param request: словарь со структурой IssueVirtualCardRequestSchema
-        :return: Ответ от сервера в виде объекта httpx.Response
+        Выпуск виртуальной карты.
+
+        :param request: Словарь с данными для выпуска виртуальной карты.
+        :return: Ответ от сервера (объект httpx.Response).
         """
-        return self.post(APIRoutes.CARDS, json=request.model_dump(by_alias=True))
+        return self.post(f"{APIRoutes.CARDS}/issue-virtual-card", json=request.model_dump(by_alias=True))
 
     def issue_physical_card_api(self, request: IssuePhysicalCardRequestSchema) -> Response:
         """
-        Публичный метод для создания пользователя
-        :param request: словарь со структурой IssuePhysicalCardRequestSchema
-        :return: Ответ от сервера в виде объекта httpx.Response
+        Выпуск физической карты.
+
+        :param request: Словарь с данными для выпуска физической карты.
+        :return: Ответ от сервера (объект httpx.Response).
         """
-        return self.post(APIRoutes.CARDS, json=request.model_dump(by_alias=True))
+        return self.post(f"{APIRoutes.CARDS}/issue-physical-card", json=request.model_dump(by_alias=True))
 
 

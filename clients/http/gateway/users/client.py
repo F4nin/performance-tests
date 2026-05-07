@@ -17,12 +17,12 @@ class UserGatewayHTTPClient(HttpClient):
         :param user_id: Идентификатор пользователя.
         :return: Ответ от сервера в виде объекта httpx.Response
         """
-        return self.client.get(usr=f"{APIRoutes.USERS}/{user_id}")
+        return self.client.get(f"{APIRoutes.USERS}/{user_id}")
 
     def create_user_api(self, request: CreateUserRequestSchema) -> Response:
         """
-        Публичный метод для создания пользователя
         :param request: словарь со структурой CreateUserRequestSchema
         :return: Ответ от сервера в виде объекта httpx.Response
         """
         return self.post(APIRoutes.USERS, json=request.model_dump(by_alias=True))
+
