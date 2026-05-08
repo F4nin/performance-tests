@@ -1,4 +1,4 @@
-from clients.http.client import HttpClient, Response
+from clients.http.gateway.client import HttpClient, Response
 from clients.http.gateway.cards.cards_schema import IssueVirtualCardRequestSchema, IssuePhysicalCardRequestSchema
 from tools.routes import APIRoutes
 
