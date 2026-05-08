@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field, EmailStr
+from pydantic import BaseModel, Field, EmailStr, ConfigDict
 from tools.fakers import fake
 
 
@@ -18,6 +18,8 @@ class CreateUserRequestSchema(BaseModel):
     """
     Описание структуры запроса для создания пользователя
     """
+    model_config = ConfigDict(populate_by_name=True)
+
     email: EmailStr = Field(default_factory=fake.email)
     last_name: str = Field(alias="lastName", default_factory=fake.last_name)
     first_name: str = Field(alias="firstName", default_factory=fake.first_name)

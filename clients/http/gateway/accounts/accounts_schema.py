@@ -1,6 +1,20 @@
-from pydantic import BaseModel, Field
+from enum import StrEnum
+from pydantic import BaseModel, Field, ConfigDict
 
 from clients.http.gateway.cards.cards_schema import CardSchema
+
+
+class AccountType(StrEnum):
+    DEPOSIT = "DEPOSIT"
+    SAVINGS = "SAVINGS"
+    DEBIT_CARD = "DEBIT_CARD"
+    CREDIT_CARD = "CREDIT_CARD"
+
+
+class AccountStatus(StrEnum):
+    ACTIVE = "ACTIVE"
+    CLOSED = "CLOSED"
+    PENDING_CLOSURE = "PENDING_CLOSURE"
 
 
 class AccountViewSchema(BaseModel):
@@ -10,7 +24,7 @@ class AccountViewSchema(BaseModel):
     id: str
     type: str
     cards: list[CardSchema]
-    status: str
+    status: AccountStatus
     balance: float
 
 
@@ -18,30 +32,40 @@ class GetAccountsQuerySchema(BaseModel):
     """
     Структура данных для получения списка счетов пользователя.
     """
+    model_config = ConfigDict(populate_by_name=True)
+
     user_id: str = Field(alias="userId")
 
 class OpenDepositAccountRequestSchema(BaseModel):
     """
     Структура данных для открытия депозитного счета.
     """
+    model_config = ConfigDict(populate_by_name=True)
+
     user_id: str = Field(alias="userId")
 
 class OpenSavingsAccountRequestSchema(BaseModel):
     """
     Структура данных для открытия сберегательного счета.
     """
+    model_config = ConfigDict(populate_by_name=True)
+
     user_id: str = Field(alias="userId")
 
 class OpenDebitCardAccountRequestSchema(BaseModel):
     """
     Структура данных для открытия дебетового счета.
     """
+    model_config = ConfigDict(populate_by_name=True)
+
     user_id: str = Field(alias="userId")
 
 class OpenCreditCardAccountRequestSchema(BaseModel):
     """
     Структура данных для открытия кредитного счета.
     """
+    model_config = ConfigDict(populate_by_name=True)
+
     user_id: str = Field(alias="userId")
 
 class GetAccountsResponseSchema(BaseModel):
