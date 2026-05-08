@@ -1,5 +1,6 @@
 from clients.http.client import HttpClient, Response
 from clients.http.gateway.cards.cards_schema import IssueVirtualCardRequestSchema, IssuePhysicalCardRequestSchema
+from clients.http.gateway.client import build_gateway_http_client
 from tools.routes import APIRoutes
 
 
@@ -25,4 +26,10 @@ class CardsGatewayHTTPClient(HttpClient):
         """
         return self.post(f"{APIRoutes.CARDS}/issue-physical-card", json=request.model_dump(by_alias=True))
 
+def build_cards_gateway_http_client() -> CardsGatewayHTTPClient:
+    """
+    Функция создаёт экземпляр CardsGatewayHTTPClient с уже настроенным HTTP-клиентом.
 
+    :return: Готовый к использованию CardsGatewayHTTPClient.
+    """
+    return CardsGatewayHTTPClient(client=build_gateway_http_client())
