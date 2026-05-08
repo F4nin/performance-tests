@@ -32,8 +32,8 @@ class DocumentsGatewayHTTPClient(HttpClient):
         return GetTariffDocumentResponseSchema.model_validate_json(response.text)
 
     def get_contract_document(self, account_id: str) -> GetContractDocumentResponseSchema:
-        repsonse = self.get_contract_document_api(account_id)
-        return GetContractDocumentResponseSchema.model_validate_json(repsonse.json())
+        response = self.get_contract_document_api(account_id)
+        return GetContractDocumentResponseSchema.model_validate_json(response.text)
 
 
 def build_documents_gateway_http_client() -> DocumentsGatewayHTTPClient:

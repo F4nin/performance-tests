@@ -2,6 +2,7 @@
 from httpx import Response, QueryParams
 
 from clients.http.client import HttpClient
+from clients.http.gateway.client import build_gateway_http_client
 from clients.http.gateway.operations.operations_schema import GetOperationsQuerySchema, GetOperationsSummaryQuerySchema, \
     MakeFeeOperationRequestSchema, MakeTopUpOperationRequestSchema, MakeCashbackOperationRequestSchema, \
     MakeTransferOperationRequestSchema, MakePurchaseOperationRequestSchema, MakeBillPaymentOperationRequestSchema, \
@@ -173,6 +174,14 @@ class OperationsGatewayHTTPClient(HttpClient):
         request = MakeCashWithdrawalOperationRequestSchema(card_id=card_id, account_id=account_id)
         response = self.make_cash_withdrawal_operation_api(request)
         return MakeCashWithdrawalOperationResponseSchema.model_validate_json(response.text)
+
+def build_operations_gateway_http_client() -> OperationsGatewayHTTPClient:
+    """
+    Функция создаёт экземпляр OperationsGatewayHTTPClient с уже настроенным HTTP-клиентом.
+
+    :return: Готовый к использованию OperationsGatewayHTTPClient.
+    """
+    return OperationsGatewayHTTPClient(client=build_gateway_http_client())
 
 
 
