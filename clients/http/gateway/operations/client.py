@@ -44,7 +44,7 @@ class OperationsGatewayHTTPClient(HttpClient):
         :param query: Словарь с параметром accountId.
         :return: Объект httpx.Response с операциями по счёту.
         """
-        return self.get(f"{APIRoutes.OPERATIONS}", params=QueryParams(**query.model_dump(by_alias=True))
+        return self.get(f"{APIRoutes.OPERATIONS}", params=QueryParams(**query.model_dump(by_alias=True)))
 
     def get_operations_summary_api(self, query: GetOperationsSummaryQuerySchema) -> Response:
         """
@@ -53,7 +53,7 @@ class OperationsGatewayHTTPClient(HttpClient):
         :param query: Словарь с параметром accountId.
         :return: Объект httpx.Response с агрегированной информацией.
         """
-        return self.get(f"{APIRoutes.OPERATIONS}/operations-summary", params=QueryParams(**query.model_dump(by_alias=True))
+        return self.get(f"{APIRoutes.OPERATIONS}/operations-summary", params=QueryParams(**query.model_dump(by_alias=True)))
 
     def make_fee_operation_api(self, request: MakeFeeOperationRequestSchema) -> Response:
         """
