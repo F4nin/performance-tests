@@ -1,5 +1,6 @@
 from clients.http.client import HttpClient, Response
-from clients.http.gateway.cards.cards_schema import IssueVirtualCardRequestSchema, IssuePhysicalCardRequestSchema
+from clients.http.gateway.cards.cards_schema import IssueVirtualCardRequestSchema, IssuePhysicalCardRequestSchema, \
+    IssueVirtualCardResponseSchema, IssuePhysicalCardResponseSchema
 from clients.http.gateway.client import build_gateway_http_client
 from tools.routes import APIRoutes
 
@@ -25,6 +26,16 @@ class CardsGatewayHTTPClient(HttpClient):
         :return: Ответ от сервера (объект httpx.Response).
         """
         return self.post(f"{APIRoutes.CARDS}/issue-physical-card", json=request.model_dump(by_alias=True))
+
+    def issue_virtual_card(self, user_id: str, account_id: str) -> IssueVirtualCardResponseSchema:
+        request = IssueVirtualCardRequestSchema(userId=user_id, accountId=account_id)
+        response = self.issue_virtual_card_api(request)
+        return IssueVirtualCardResponseSchema.model_validate_json(response.text)
+
+    def issue_physical_card(self, user_id: str, account_id: str) -> IssuePhysicalCardResponseSchema:
+        request = IssuePhysicalCardRequestSchema(userId=user_id, accountId=account_id)
+        response = self.issue_physical_card_api(request)
+        return IssuePhysicalCardResponseSchema.model_validate_json(response.text)
 
 def build_cards_gateway_http_client() -> CardsGatewayHTTPClient:
     """

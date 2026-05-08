@@ -23,3 +23,16 @@ class CreateUserRequestSchema(BaseModel):
     first_name: str = Field(alias="firstName", default_factory=fake.first_name)
     middle_name: str = Field(alias="middleName", default_factory=fake.middle_name)
     phone_number: str = Field(alias="phoneNumber", default_factory=fake.phone_number)
+
+class GetUserResponseSchema(BaseModel):
+    """
+    Описание структуры ответа получения пользователя.
+    """
+    user: UserSchema
+
+class CreateUserResponseSchema(BaseModel):
+    """
+    Описание структуры ответа создания пользователя.
+    """
+    user: UserSchema
+

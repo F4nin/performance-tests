@@ -11,7 +11,7 @@ class AccountViewSchema(BaseModel):
     type: str
     cards: list[CardSchema]
     status: str
-    balance: int
+    balance: float
 
 
 class GetAccountsQuerySchema(BaseModel):
@@ -43,3 +43,35 @@ class OpenCreditCardAccountRequestSchema(BaseModel):
     Структура данных для открытия кредитного счета.
     """
     user_id: str = Field(alias="userId")
+
+class GetAccountsResponseSchema(BaseModel):
+    """
+    Описание структуры ответа получения списка счетов.
+    """
+    accounts: list[AccountViewSchema]
+
+class OpenDepositAccountResponseSchema(BaseModel):
+    """
+    Описание структуры ответа открытия депозитного счета.
+    """
+    account: AccountViewSchema
+
+class OpenSavingsAccountResponseSchema(BaseModel):
+    """
+    Описание структуры ответа открытия сберегательного счета.
+    """
+    account: AccountViewSchema
+
+class OpenDebitCardAccountResponseSchema(BaseModel):
+    """
+    Описание структуры ответа открытия дебетового счета.
+    """
+    account: AccountViewSchema
+
+class OpenCreditCardAccountResponseSchema(BaseModel):
+    """
+    Описание структуры ответа открытия кредитного счета.
+    """
+    account: AccountViewSchema
+
+

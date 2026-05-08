@@ -1,5 +1,6 @@
 from pydantic import BaseModel, Field, EmailStr, ConfigDict
 from tools.fakers import fake
+from datetime import date
 
 class CardSchema(BaseModel):
     """
@@ -13,7 +14,7 @@ class CardSchema(BaseModel):
     account_id: str = Field(alias="accountId")
     card_number: str = Field(alias="cardNumber")
     card_holder: str = Field(alias="cardHolder")
-    expiry_date: str = Field(alias="expiryDate")
+    expiry_date: date = Field(alias="expiryDate")
     payment_system: str = Field(alias="paymentSystem")
 
 class IssueVirtualCardRequestSchema(BaseModel):
@@ -33,3 +34,9 @@ class IssuePhysicalCardRequestSchema(BaseModel):
 
     user_id: str = Field(alias="userId", default=fake.uuid4)
     account_id: str = Field(alias="accountId", default=fake.uuid4)
+
+class IssueVirtualCardResponseSchema(BaseModel):
+    card: CardSchema
+
+class IssuePhysicalCardResponseSchema(BaseModel):
+    card: CardSchema

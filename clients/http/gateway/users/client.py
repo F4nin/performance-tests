@@ -2,7 +2,8 @@ from httpx import Response
 
 from clients.http.client import HttpClient
 from clients.http.gateway.client import build_gateway_http_client
-from clients.http.gateway.users.users_schema import CreateUserRequestSchema
+from clients.http.gateway.users.users_schema import CreateUserRequestSchema, GetUserResponseSchema, \
+    CreateUserResponseSchema
 from tools.routes import APIRoutes
 
 
@@ -19,6 +20,16 @@ class UsersGatewayHTTPClient(HttpClient):
         :return: Ответ от сервера в виде объекта httpx.Response
         """
         return self.client.get(f"{APIRoutes.USERS}/{user_id}")
+
+    def get_user(self, user_id: str) -> GetUserResponseSchema:
+        response = self.get_user_api(user_id)
+        return GetUserResponseSchema.model_validate(response.text)
+
+    def create_user(self, request: CreateUserRequestSchema) -> CreateUserResponseSchema:
+        response = self.create_user_api(request)
+        return CreateUserResponseSchema.model_validate(response.text)
+
+
 
     def create_user_api(self, request: CreateUserRequestSchema) -> Response:
         """
