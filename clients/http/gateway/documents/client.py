@@ -1,4 +1,4 @@
-from clients.http.gateway.client import HttpClient, Response
+from clients.http.client import HttpClient, Response
 from tools.routes import APIRoutes
 
 

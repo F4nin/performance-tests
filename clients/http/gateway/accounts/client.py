@@ -1,6 +1,6 @@
 from httpx import Response, QueryParams
 
-from clients.http.gateway.client import HttpClient
+from clients.http.client import HttpClient
 from clients.http.gateway.accounts.accounts_schema import GetAccountsQuerySchema, OpenDepositAccountRequestSchema, \
     OpenSavingsAccountRequestSchema, OpenDebitCardAccountRequestSchema
 from tools.routes import APIRoutes

@@ -1,6 +1,6 @@
 from httpx import Response
 
-from clients.http.gateway.client import HttpClient
+from clients.http.client import HttpClient
 from clients.http.gateway.users.users_schema import CreateUserRequestSchema
 from tools.routes import APIRoutes
 
