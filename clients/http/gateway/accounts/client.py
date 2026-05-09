@@ -59,27 +59,27 @@ class AccountsGatewayHTTPClient(HttpClient):
         return self.post(f"{APIRoutes.ACCOUNTS}/open-credit-card-account", json=request.model_dump(by_alias=True))
 
     def get_accounts(self, user_id: str) -> GetAccountsResponseSchema:
-        query = GetAccountsQuerySchema(userId=user_id)
+        query = GetAccountsQuerySchema(user_id=user_id)
         response = self.get_accounts_api(query)
         return GetAccountsResponseSchema.model_validate_json(response.text)
 
     def open_deposit_account(self, user_id: str) -> OpenDepositAccountResponseSchema:
-        request = OpenDepositAccountRequestSchema(userId=user_id)
+        request = OpenDepositAccountRequestSchema(user_id=user_id)
         response = self.open_deposit_account_api(request)
         return OpenDepositAccountResponseSchema.model_validate_json(response.text)
 
     def open_savings_account(self, user_id: str) -> OpenSavingsAccountResponseSchema:
-        request = OpenSavingsAccountRequestSchema(userId=user_id)
+        request = OpenSavingsAccountRequestSchema(user_id=user_id)
         response = self.open_savings_account_api(request)
         return OpenSavingsAccountResponseSchema.model_validate_json(response.text)
 
     def open_debit_card_account(self, user_id: str) ->OpenDebitCardAccountResponseSchema:
-        request = OpenDebitCardAccountRequestSchema(userId=user_id)
+        request = OpenDebitCardAccountRequestSchema(user_id=user_id)
         response = self.open_debit_card_account_api(request)
         return OpenDebitCardAccountResponseSchema.model_validate_json(response.text)
 
     def open_credit_card_account(self, user_id: str) -> OpenCreditCardAccountResponseSchema:
-        request = OpenCreditCardAccountRequestSchema(userId=user_id)
+        request = OpenCreditCardAccountRequestSchema(user_id=user_id)
         response = self.open_credit_card_account_api(request)
         return OpenCreditCardAccountResponseSchema.model_validate_json(response.text)
     

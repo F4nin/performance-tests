@@ -40,8 +40,8 @@ class IssueVirtualCardRequestSchema(BaseModel):
     """
     model_config = ConfigDict(populate_by_name=True)
 
-    user_id: str = Field(alias="userId", default=fake.uuid4)
-    account_id: str = Field(alias="accountId", default=fake.uuid4)
+    user_id: str = Field(alias="userId")
+    account_id: str = Field(alias="accountId")
 
 class IssuePhysicalCardRequestSchema(BaseModel):
     """
@@ -49,8 +49,8 @@ class IssuePhysicalCardRequestSchema(BaseModel):
     """
     model_config = ConfigDict(populate_by_name=True)
 
-    user_id: str = Field(alias="userId", default=fake.uuid4)
-    account_id: str = Field(alias="accountId", default=fake.uuid4)
+    user_id: str = Field(alias="userId")
+    account_id: str = Field(alias="accountId")
 
 class IssueVirtualCardResponseSchema(BaseModel):
     """
