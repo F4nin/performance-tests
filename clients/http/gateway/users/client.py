@@ -21,6 +21,13 @@ class UsersGatewayHTTPClient(HttpClient):
         """
         return self.client.get(f"{APIRoutes.USERS}/{user_id}")
 
+    def create_user_api(self, request: CreateUserRequestSchema) -> Response:
+        """
+        :param request: словарь со структурой CreateUserRequestSchema
+        :return: Ответ от сервера в виде объекта httpx.Response
+        """
+        return self.post(APIRoutes.USERS, json=request.model_dump(by_alias=True))
+
     def get_user(self, user_id: str) -> GetUserResponseSchema:
         response = self.get_user_api(user_id)
         return GetUserResponseSchema.model_validate_json(response.text)
@@ -28,15 +35,6 @@ class UsersGatewayHTTPClient(HttpClient):
     def create_user(self, request: CreateUserRequestSchema) -> CreateUserResponseSchema:
         response = self.create_user_api(request)
         return CreateUserResponseSchema.model_validate_json(response.text)
-
-
-
-    def create_user_api(self, request: CreateUserRequestSchema) -> Response:
-        """
-        :param request: словарь со структурой CreateUserRequestSchema
-        :return: Ответ от сервера в виде объекта httpx.Response
-        """
-        return self.post(APIRoutes.USERS, json=request.model_dump(by_alias=True))
 
 def build_users_gateway_http_client() -> UsersGatewayHTTPClient:
     """
