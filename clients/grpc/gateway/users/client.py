@@ -74,6 +74,3 @@ def build_users_gateway_grpc_client() -> UsersGatewayGRPCClient:
     :return: Инициализированный клиент для UsersGatewayService.
     """
     return UsersGatewayGRPCClient(channel=build_gateway_grpc_client())
-
-client = build_users_gateway_grpc_client()
-print(client.create_user())
