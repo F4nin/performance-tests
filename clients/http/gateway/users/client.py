@@ -1,10 +1,11 @@
 from httpx import Response
 
-from clients.http.client import HttpClient
-from clients.http.gateway.client import build_gateway_http_client
+from clients.http.client import HttpClient, HttpClientExtensions
+from clients.http.gateway.client import build_gateway_http_client, build_gateway_locust_http_client
 from clients.http.gateway.users.users_schema import CreateUserRequestSchema, GetUserResponseSchema, \
     CreateUserResponseSchema
 from tools.routes import APIRoutes
+from locust.env import Environment
 
 
 class UsersGatewayHTTPClient(HttpClient):
@@ -19,14 +20,20 @@ class UsersGatewayHTTPClient(HttpClient):
         :param user_id: Идентификатор пользователя.
         :return: Ответ от сервера в виде объекта httpx.Response
         """
-        return self.client.get(f"{APIRoutes.USERS}/{user_id}")
+        return self.client.get(
+            f"{APIRoutes.USERS}/{user_id}",
+            extensions=HttpClientExtensions(route=f"{APIRoutes.USERS}/{{user_id}}")
+        )
 
     def create_user_api(self, request: CreateUserRequestSchema) -> Response:
         """
         :param request: словарь со структурой CreateUserRequestSchema
         :return: Ответ от сервера в виде объекта httpx.Response
         """
-        return self.post(APIRoutes.USERS, json=request.model_dump(by_alias=True))
+        return self.post(
+            APIRoutes.USERS,
+            json=request.model_dump(by_alias=True)
+        )
 
     def get_user(self, user_id: str) -> GetUserResponseSchema:
         response = self.get_user_api(user_id)
@@ -43,3 +50,15 @@ def build_users_gateway_http_client() -> UsersGatewayHTTPClient:
     :return: Готовый к использованию UsersGatewayHTTPClient.
     """
     return UsersGatewayHTTPClient(client=build_gateway_http_client())
+
+def build_users_gateway_locust_http_client(environment: Environment) -> UsersGatewayHTTPClient:
+    """
+    Функция создаёт экземпляр UsersGatewayHTTPClient адаптированного под Locust.
+
+    Клиент автоматически собирает метрики и передаёт их в Locust через хуки.
+    Используется исключительно в нагрузочных тестах.
+
+    :param environment: объект окружения Locust.
+    :return: экземпляр UsersGatewayHTTPClient с хуками сбора метрик.
+    """
+    return UsersGatewayHTTPClient(client=build_gateway_locust_http_client(environment))

@@ -1,4 +1,4 @@
-from clients.http.client import HttpClient, Response
+from clients.http.client import HttpClient, Response, HttpClientExtensions
 from clients.http.gateway.client import build_gateway_http_client
 from clients.http.gateway.documents.documents_schema import GetTariffDocumentResponseSchema, \
     GetContractDocumentResponseSchema
@@ -16,7 +16,9 @@ class DocumentsGatewayHTTPClient(HttpClient):
         :param account_id: Идентификатор счета.
         :return: Ответ от сервера (объект httpx.Response).
         """
-        return self.get(f"{APIRoutes.DOCUMENTS}/tariff-document/{account_id}")
+        return self.get(
+            f"{APIRoutes.DOCUMENTS}/tariff-document/{account_id}",
+            extensions=HttpClientExtensions(route=f"{APIRoutes.DOCUMENTS}/tariff-document/{{account_id}}"))
 
     def get_contract_document_api(self, account_id: str) -> Response:
         """
@@ -25,7 +27,9 @@ class DocumentsGatewayHTTPClient(HttpClient):
         :param account_id: Идентификатор счета.
         :return: Ответ от сервера (объект httpx.Response).
         """
-        return self.get(f"{APIRoutes.DOCUMENTS}/contract-document/{account_id}")
+        return self.get(
+            f"{APIRoutes.DOCUMENTS}/contract-document/{account_id}",
+            extensions=HttpClientExtensions(route=f"{APIRoutes.DOCUMENTS}/contract-document/{{account_id}}"))
 
     def get_tariff_document(self, account_id: str) -> GetTariffDocumentResponseSchema:
         response = self.get_tariff_document_api(account_id)
