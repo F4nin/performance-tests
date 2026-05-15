@@ -44,7 +44,7 @@ class SeedsBuilder:
         self.accounts_gateway_client = accounts_gateway_client
         self.operations_gateway_client = operations_gateway_client
 
-    def build_transfer_operation_result(self, card_id: str, account_id: str) -> SeedCardResult:
+    def build_transfer_operation_result(self, card_id: str, account_id: str) -> SeedOperationResult:
         response = self.operations_gateway_client.make_transfer_operation(
             card_id=card_id,
             account_id=account_id,
@@ -166,11 +166,11 @@ class SeedsBuilder:
         return SeedAccountResult(
             account_id=response.account.id,
             virtual_cards=[
-                self.build_virtual_card_result(user_id=user_id, account_id=response.account.id)
+                self.build_virtual_card_result(user_id=user_id, account_id=account_id)
                 for _ in range(plan.virtual_cards.count)
             ],
             physical_cards=[
-                self.build_physical_card_result(user_id=user_id, account_id=response.account.id)
+                self.build_physical_card_result(user_id=user_id, account_id=account_id)
                 for _ in range(plan.physical_cards.count)
             ],
             top_up_operations=[
@@ -304,7 +304,7 @@ def build_grpc_seeds_builder() -> SeedsBuilder:
     )
 
 
-def build_http_seeds_builder():
+def build_http_seeds_builder() -> SeedsBuilder:
     """
     Фабрика для создания сидера с использованием HTTP-клиентов.
 
