@@ -80,7 +80,12 @@ class SeedsResult(BaseModel):
         Returns:
             SeedUserResult: Следующий пользователь из списка.
         """
+        if not self.users:
+            raise RuntimeError("SeedsResult: нет доступных пользователей")
         return self.users.pop(0)
+
+
+
 
     def get_random_user(self) -> SeedUserResult:
         """
@@ -91,4 +96,6 @@ class SeedsResult(BaseModel):
         Returns:
             SeedUserResult: Случайный пользователь.
         """
+        if not self.users:
+            raise RuntimeError("SeedsResult: нет доступных пользователей")
         return random.choice(self.users)

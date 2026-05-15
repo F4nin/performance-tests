@@ -8,7 +8,7 @@ class SeedCardsPlan(BaseModel):
     Attributes:
         count (int): Количество карт (виртуальных или физических), которые нужно создать.
     """
-    count: int = 0
+    count: int = Field(default=0, ge=0)
 
 
 class SeedOperationsPlan(BaseModel):
@@ -18,7 +18,7 @@ class SeedOperationsPlan(BaseModel):
     Attributes:
         count (int): Количество операций (например, пополнений или покупок), которые нужно сгенерировать.
     """
-    count: int = 0
+    count: int = Field(default=0, ge=0)
 
 
 class SeedAccountsPlan(BaseModel):
@@ -31,7 +31,7 @@ class SeedAccountsPlan(BaseModel):
         top_up_operations (SeedOperationsPlan): План по созданию операций пополнения.
         purchase_operations (SeedOperationsPlan): План по созданию операций покупки.
     """
-    count: int = 0
+    count: int = Field(default=0, ge=0)
     virtual_cards: SeedCardsPlan = Field(default_factory=SeedCardsPlan)
     transfer_operations: SeedOperationsPlan = Field(default_factory=SeedOperationsPlan)
     cash_withdrawal_operations: SeedOperationsPlan = Field(default_factory=SeedOperationsPlan)
@@ -51,7 +51,7 @@ class SeedUsersPlan(BaseModel):
         debit_card_accounts (SeedAccountsPlan): План по дебетовым картам.
         credit_card_accounts (SeedAccountsPlan): План по кредитным картам.
     """
-    count: int = 0
+    count: int = Field(default=0, ge=0)
     deposit_accounts: SeedAccountsPlan = Field(default_factory=SeedAccountsPlan)
     savings_accounts: SeedAccountsPlan = Field(default_factory=SeedAccountsPlan)
     debit_card_accounts: SeedAccountsPlan = Field(default_factory=SeedAccountsPlan)
