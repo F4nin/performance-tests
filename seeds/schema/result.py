@@ -34,6 +34,9 @@ class SeedAccountResult(BaseModel):
         purchase_operations (list[SeedOperationResult]): Список операций покупки.
     """
     account_id: str
+    virtual_cards: list[SeedCardResult] = Field(default_factory=list)
+    transfer_operations: list[SeedOperationResult] = Field(default_factory=list)
+    cash_withdrawal_operations: list[SeedOperationResult] = Field(default_factory=list)
     physical_cards: list[SeedCardResult] = Field(default_factory=list)
     top_up_operations: list[SeedOperationResult] = Field(default_factory=list)
     purchase_operations: list[SeedOperationResult] = Field(default_factory=list)
