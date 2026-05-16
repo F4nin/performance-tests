@@ -36,14 +36,12 @@ class SeedsScenario(ABC):
         """
         pass
 
-
     def save(self, result: SeedsResult) -> None:
         """
         Сохраняет результат сидинга в файл.
         :param result: Объект SeedsResult, содержащий сгенерированные данные.
         """
         save_seeds_result(result=result, scenario=self.scenario)
-
 
     def load(self) -> SeedsResult:
         """
@@ -58,4 +56,3 @@ class SeedsScenario(ABC):
         """
         result = self.builder.build(self.plan)
         self.save(result)
-
