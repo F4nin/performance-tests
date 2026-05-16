@@ -3,8 +3,17 @@ from seeds.schema.plan import SeedsPlan, SeedUsersPlan, SeedAccountsPlan, SeedOp
 
 
 class ExistingUserGetOperationsSeedsScenario(SeedsScenario):
+    """
+    Сценарий сидинга для существующего пользователя, который просматривает историю операций.
+    Создаёт 300 пользователей, каждому открывается кредитный счёт с набором операций.
+    """
+
     @property
     def plan(self) -> SeedsPlan:
+        """
+        План сидинга: 300 пользователей, у каждого кредитный счёт
+        с 1 пополнением, 5 покупками и 1 снятием наличных.
+        """
         return SeedsPlan(
             users=SeedUsersPlan(
                 count=300,
@@ -19,6 +28,10 @@ class ExistingUserGetOperationsSeedsScenario(SeedsScenario):
 
     @property
     def scenario(self) -> str:
+        """
+        Возвращает название сценария сидинга.
+        Это имя будет использоваться для сохранения данных сидинга.
+        """
         return "existing_user_get_operations"
 
 
