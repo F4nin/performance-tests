@@ -48,6 +48,7 @@ jobs:
 
       - name: Start test services
         run: docker compose -f docker-compose.ci.yaml up -d --build
+        working-directory: performance-qa-engineer-course
 
       - name: Install dependencies
         run: |
