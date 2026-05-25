@@ -37,7 +37,7 @@ jobs:
       - name: Set up Python
         uses: actions/checkout@v6
         with:
-          python-version: '3.13'
+          python-version: '3.12'
 
       - name: Clone test services
         run: git clone https://github.com/Nikita-Filonov/performance-qa-engineer-course.git
