@@ -16,3 +16,6 @@ locust_*.csv
 locust_*.json
 report.htmp
 .DS_Store
+
+#claude
+.claude
